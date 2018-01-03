@@ -11,6 +11,7 @@ namespace mymoney.Models
     public class ApplicationUser : IdentityUser
     {
         public ICollection<Spending> Spendings { get; set; }
+        public ICollection<SpendingCategory> SpendingCategories { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -33,5 +34,8 @@ namespace mymoney.Models
         }
 
         public System.Data.Entity.DbSet<mymoney.Models.Spending> Spendings { get; set; }
+
+        public System.Data.Entity.DbSet<mymoney.Models.SpendingCategory> SpendingCategories { get; set; }
+
     }
 }

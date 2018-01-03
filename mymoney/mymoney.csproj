@@ -202,6 +202,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SpendingCategoriesController.cs" />
     <Compile Include="Controllers\SpendingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -211,6 +212,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Spending.cs" />
+    <Compile Include="Models\SpendingCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -277,6 +279,11 @@
     <Content Include="Views\Spendings\Details.cshtml" />
     <Content Include="Views\Spendings\Edit.cshtml" />
     <Content Include="Views\Spendings\Index.cshtml" />
+    <Content Include="Views\SpendingCategories\Create.cshtml" />
+    <Content Include="Views\SpendingCategories\Delete.cshtml" />
+    <Content Include="Views\SpendingCategories\Details.cshtml" />
+    <Content Include="Views\SpendingCategories\Edit.cshtml" />
+    <Content Include="Views\SpendingCategories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
