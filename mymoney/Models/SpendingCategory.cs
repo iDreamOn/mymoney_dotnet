@@ -12,5 +12,6 @@ namespace mymoney.Models
         public string Description { get; set; }
         public string ApplicationUserID { get; set; }
         public virtual ApplicationUser Owner { get; set; }
+        public ICollection<Budget> Budgets { get; set; }
     }
 }

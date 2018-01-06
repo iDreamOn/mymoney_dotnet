@@ -1,7 +1,7 @@
-﻿@model IEnumerable<mymoney.Models.Spending>
+﻿@model IEnumerable<mymoney.Models.Budget>
 
 @{
-    ViewBag.Title = "Spendings";
+    ViewBag.Title = "Budgets";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,10 +13,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Category)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TransactionDate)
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Amount)
@@ -27,10 +30,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.DisplayFor(modelItem => item.Category.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TransactionDate)
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Amount)
