@@ -35,6 +35,14 @@
             @Html.DisplayFor(model => model.Amount)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Budget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Budget.Category.Name)
+        </dd>
+
     </dl>
 </div>
 <p>

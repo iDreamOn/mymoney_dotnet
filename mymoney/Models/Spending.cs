@@ -16,5 +16,7 @@ namespace mymoney.Models
         public decimal Amount { get; set; }
         public string ApplicationUserID { get; set; }
         public virtual ApplicationUser Owner { get; set; }
+        public int BudgetID { get; set; }
+        public virtual Budget Budget { get; set; }
     }
 }

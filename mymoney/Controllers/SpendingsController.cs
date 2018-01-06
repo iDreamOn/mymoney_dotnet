@@ -21,7 +21,8 @@ namespace mymoney.Controllers
         public async Task<ActionResult> Index()
         {
             string userid = User.Identity.GetUserId();
-            return View(await db.Spendings.Where(x => x.ApplicationUserID == userid).ToListAsync());
+            var spendings = db.Spendings.Where(x => x.ApplicationUserID == userid).Include(b => b.Budget);
+            return View(await spendings.ToListAsync());
         }
 
         // GET: Spendings/Details/5
@@ -42,6 +43,15 @@ namespace mymoney.Controllers
         // GET: Spendings/Create
         public ActionResult Create()
         {
+            string userid = User.Identity.GetUserId();
+            var budgets = db.Budgets.Include(b => b.Category).Where(x => x.ApplicationUserID == userid);
+            var query = from budget in budgets
+                        select new
+                        {
+                            Name = budget.Category.Name,
+                            ID = budget.ID
+                        };
+            ViewBag.BudgetsNames = new SelectList(query, "Id", "Name");
             return View();
         }
 
@@ -50,7 +60,7 @@ namespace mymoney.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Description,TransactionDate,Amount")] Spending spending)
+        public async Task<ActionResult> Create([Bind(Include = "ID,Description,TransactionDate,Amount,BudgetID")] Spending spending)
         {
             string userid = User.Identity.GetUserId();
             spending.ApplicationUserID = userid;
@@ -61,6 +71,14 @@ namespace mymoney.Controllers
                 return RedirectToAction("Index");
             }
 
+            var budgets = db.Budgets.Include(b => b.Category).Where(x => x.ApplicationUserID == userid);
+            var query = from budget in budgets
+                        select new
+                        {
+                            Name = budget.Category.Name,
+                            ID = budget.ID
+                        };
+            ViewBag.BudgetsNames = new SelectList(query, "Id", "Name");
             return View(spending);
         }
 
@@ -76,6 +94,16 @@ namespace mymoney.Controllers
             {
                 return HttpNotFound();
             }
+
+            string userid = User.Identity.GetUserId();
+            var budgets = db.Budgets.Include(b => b.Category).Where(x => x.ApplicationUserID == userid);
+            var query = from budget in budgets
+                        select new
+                        {
+                            Name = budget.Category.Name,
+                            ID = budget.ID
+                        };
+            ViewBag.BudgetsNames = new SelectList(query, "Id", "Name");
             return View(spending);
         }
 
@@ -84,7 +112,7 @@ namespace mymoney.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Description,TransactionDate,Amount,ApplicationUserID")] Spending spending)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,Description,TransactionDate,Amount,ApplicationUserID,BudgetID")] Spending spending)
         {
             if (ModelState.IsValid)
             {
@@ -92,6 +120,16 @@ namespace mymoney.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
+            string userid = User.Identity.GetUserId();
+            var budgets = db.Budgets.Include(b => b.Category).Where(x => x.ApplicationUserID == userid);
+            var query = from budget in budgets
+                        select new
+                        {
+                            Name = budget.Category.Name,
+                            ID = budget.ID
+                        };
+            ViewBag.BudgetsNames = new SelectList(query, "Id", "Name");
             return View(spending);
         }
 

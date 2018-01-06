@@ -20,7 +20,8 @@ namespace mymoney.Controllers
         // GET: Budgets
         public async Task<ActionResult> Index()
         {
-            var budgets = db.Budgets.Include(b => b.Category);
+            string userid = User.Identity.GetUserId();
+            var budgets = db.Budgets.Where(x => x.ApplicationUserID == userid).Include(b => b.Category);
             return View(await budgets.ToListAsync());
         }
 
