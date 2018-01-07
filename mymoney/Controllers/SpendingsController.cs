@@ -51,7 +51,7 @@ namespace mymoney.Controllers
                             Name = budget.Category.Name,
                             ID = budget.ID
                         };
-            ViewBag.BudgetsNames = new SelectList(query, "Id", "Name");
+            ViewBag.BudgetsNames = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Name");
             return View();
         }
 
@@ -71,14 +71,7 @@ namespace mymoney.Controllers
                 return RedirectToAction("Index");
             }
 
-            var budgets = db.Budgets.Include(b => b.Category).Where(x => x.ApplicationUserID == userid);
-            var query = from budget in budgets
-                        select new
-                        {
-                            Name = budget.Category.Name,
-                            ID = budget.ID
-                        };
-            ViewBag.BudgetsNames = new SelectList(query, "Id", "Name");
+            ViewBag.BudgetsNames = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Name");
             return View(spending);
         }
 
@@ -95,15 +88,7 @@ namespace mymoney.Controllers
                 return HttpNotFound();
             }
 
-            string userid = User.Identity.GetUserId();
-            var budgets = db.Budgets.Include(b => b.Category).Where(x => x.ApplicationUserID == userid);
-            var query = from budget in budgets
-                        select new
-                        {
-                            Name = budget.Category.Name,
-                            ID = budget.ID
-                        };
-            ViewBag.BudgetsNames = new SelectList(query, "Id", "Name");
+            ViewBag.BudgetsNames = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Name");
             return View(spending);
         }
 
@@ -121,15 +106,7 @@ namespace mymoney.Controllers
                 return RedirectToAction("Index");
             }
 
-            string userid = User.Identity.GetUserId();
-            var budgets = db.Budgets.Include(b => b.Category).Where(x => x.ApplicationUserID == userid);
-            var query = from budget in budgets
-                        select new
-                        {
-                            Name = budget.Category.Name,
-                            ID = budget.ID
-                        };
-            ViewBag.BudgetsNames = new SelectList(query, "Id", "Name");
+            ViewBag.BudgetsNames = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Name");
             return View(spending);
         }
 

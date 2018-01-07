@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using mymoney.Models;
 using Microsoft.AspNet.Identity;
+using System.Web.Script.Serialization;
 
 namespace mymoney.Controllers
 {
@@ -138,6 +139,22 @@ namespace mymoney.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpGet]
+        public ActionResult GetByDate(DateTime TransactionDate)
+        {
+            string userid = User.Identity.GetUserId();
+            var cities = db.Budgets.Where(c => c.StartDate <= TransactionDate && TransactionDate <= c.EndDate && c.ApplicationUserID == userid).Include(b => b.Category);
+            var query = from budget in cities
+                        select new
+                        {
+                            Name = budget.Category.Name,
+                            ID = budget.ID
+                        };
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string result = javaScriptSerializer.Serialize(query);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
