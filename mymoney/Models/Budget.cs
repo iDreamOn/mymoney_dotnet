@@ -17,11 +17,7 @@ namespace mymoney.Models
         public DateTime EndDate { get; set; }
         [DataType(DataType.Currency)]
         public decimal Amount { get; set; }
+        [DataType(DataType.Currency)]
         public ICollection<Spending> Spendings { get; set; }
-
-        public override string ToString()
-        {
-            return String.Format("{0} ({1} - {2})",this.Category.Name, this.StartDate, this.EndDate);
-        }
     }
 }
