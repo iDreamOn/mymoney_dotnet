@@ -18,10 +18,26 @@ namespace mymoney.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Spendings
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string sortOrder)
         {
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
             string userid = User.Identity.GetUserId();
             var spendings = db.Spendings.Where(x => x.ApplicationUserID == userid).Include(b => b.Budget);
+
+            switch (sortOrder)
+            {
+                case "Date":
+                    spendings = spendings.OrderBy(s => s.TransactionDate);
+                    break;
+                case "date_desc":
+                    spendings = spendings.OrderByDescending(s => s.TransactionDate);
+                    break;
+                default:
+                    spendings = spendings.OrderByDescending(s => s.TransactionDate);
+                    break;
+            }
+
             return View(await spendings.ToListAsync());
         }
 

@@ -40,6 +40,7 @@ namespace mymoney.Controllers
             {
                 return HttpNotFound();
             }
+            budget.Spendings = await db.Spendings.Where(b => b.BudgetID == budget.ID).OrderByDescending(s => s.TransactionDate).ToListAsync();
             return View(budget);
         }
 

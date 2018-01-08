@@ -51,9 +51,62 @@
             @Html.DisplayFor(model => model.Amount)
         </dd>
 
+        <dt>
+            Spent
+        </dt>
+
+        <dd>
+            @String.Format("{0:C}", Model.Spendings.Sum(x => x.Amount))
+        </dd>
+
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@if (Model.Spendings.Count() > 0)
+{
+    <h4>Transactions</h4>
+    <table class="table">
+    <tr>
+        <th>
+            Description
+        </th>
+        <th>
+            TransactionDate
+        </th>
+        <th>
+            Amount
+        </th>
+        <th>
+            Budget
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Spendings)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Budget.Category.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { Controller = "Spendings", action = "Edit", id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new {Controller = "Spendings", action = "Details", id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { Controller = "Spendings", action = "Delete", id = item.ID })
+            </td>
+        </tr>
+    }
+    </table>
+}
