@@ -10,6 +10,15 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm("Index", "Budgets/Index", FormMethod.Get))
+{
+    <p>
+        Find by date: @Html.TextBox("SearchDate", new DateTime(), new { type = "date" })
+        <input type="submit" value="Filter" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>

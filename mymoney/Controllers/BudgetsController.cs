@@ -19,10 +19,15 @@ namespace mymoney.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Budgets
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(DateTime? SearchDate)
         {
+            if(SearchDate == null)
+            {
+                SearchDate = DateTime.Now;
+            }
+
             string userid = User.Identity.GetUserId();
-            var budgets = db.Budgets.Where(x => x.ApplicationUserID == userid)
+            var budgets = db.Budgets.Where(c => c.StartDate <= SearchDate && SearchDate <= c.EndDate && c.ApplicationUserID == userid)
                 .Include(b => b.Category)
                 .Include(b => b.Spendings);
             return View(await budgets.ToListAsync());
@@ -148,8 +153,8 @@ namespace mymoney.Controllers
         public ActionResult GetByDate(DateTime TransactionDate)
         {
             string userid = User.Identity.GetUserId();
-            var cities = db.Budgets.Where(c => c.StartDate <= TransactionDate && TransactionDate <= c.EndDate && c.ApplicationUserID == userid).Include(b => b.Category);
-            var query = from budget in cities
+            var budgets = db.Budgets.Where(c => c.StartDate <= TransactionDate && TransactionDate <= c.EndDate && c.ApplicationUserID == userid).Include(b => b.Category);
+            var query = from budget in budgets
                         select new
                         {
                             Name = budget.Category.Name,
