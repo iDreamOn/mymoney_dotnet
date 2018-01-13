@@ -203,16 +203,19 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BudgetsController.cs" />
+    <Compile Include="Controllers\FinancialGoalsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SpendingCategoriesController.cs" />
     <Compile Include="Controllers\SpendingsController.cs" />
+    <Compile Include="Enums\FinancialGoalOption.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Budget.cs" />
+    <Compile Include="Models\FinancialGoal.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Spending.cs" />
@@ -294,6 +297,11 @@
     <Content Include="Views\Budgets\Details.cshtml" />
     <Content Include="Views\Budgets\Edit.cshtml" />
     <Content Include="Views\Budgets\Index.cshtml" />
+    <Content Include="Views\FinancialGoals\Create.cshtml" />
+    <Content Include="Views\FinancialGoals\Delete.cshtml" />
+    <Content Include="Views\FinancialGoals\Details.cshtml" />
+    <Content Include="Views\FinancialGoals\Edit.cshtml" />
+    <Content Include="Views\FinancialGoals\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
