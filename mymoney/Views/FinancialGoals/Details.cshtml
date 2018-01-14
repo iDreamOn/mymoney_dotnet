@@ -81,3 +81,49 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<br />
+<h3>Reach your goal</h3>
+<div class="row">
+    <div class="col-md-4">
+        <h4>On Time</h4>
+        <p>
+            Reach your goal by @Html.DisplayFor(model => model.EndDate) doing one of the following:
+            <ul>
+                <li>@ViewBag.SaveOrPay $@ViewBag.WeeklyPayments every week.</li>
+                <li>@ViewBag.SaveOrPay $@ViewBag.BiWeeklyPayments every 2 weeks.</li>
+                @if (@ViewBag.MonthlyPayments > 0)
+                {
+                    <li>@ViewBag.SaveOrPay $@ViewBag.MonthlyPayments every month.</li>
+                }
+            </ul>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h4>Faster</h4>
+        <p>
+            Reach your goal by @ViewBag.EarlyDate3_4.ToShortDateString() doing one of the following:
+            <ul>
+                <li>@ViewBag.SaveOrPay $@ViewBag.EarlyWeeklyPayments3_4 every week.</li>
+                <li>@ViewBag.SaveOrPay $@ViewBag.EarlyBiWeeklyPayments3_4 every 2 weeks.</li>
+                @if (@ViewBag.EarlyMonthlyPayments3_4 > 0)
+                {
+                <li>@ViewBag.SaveOrPay $@ViewBag.EarlyMonthlyPayments3_4 every month.</li>
+                }
+            </ul>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h4>Even Faster</h4>
+        <p>
+            Reach your goal by @ViewBag.EarlyDate.ToShortDateString() doing one of the following:
+            <ul>
+                <li>@ViewBag.SaveOrPay $@ViewBag.EarlyWeeklyPayments every week.</li>
+                <li>@ViewBag.SaveOrPay $@ViewBag.EarlyBiWeeklyPayments every 2 weeks.</li>
+                @if (@ViewBag.EarlyMonthlyPayments > 0)
+                {
+                    <li>@ViewBag.SaveOrPay $@ViewBag.EarlyMonthlyPayments every month.</li>
+                }
+            </ul>
+        </p>
+    </div>
+</div>

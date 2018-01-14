@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using mymoney.Models;
 using Microsoft.AspNet.Identity;
+using mymoney.Utilities;
 
 namespace mymoney.Controllers
 {
@@ -37,6 +38,20 @@ namespace mymoney.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.DaysToCompletion = DateUtility.GetDaysBetweenDates(financialGoal.StartDate, financialGoal.EndDate);
+            ViewBag.WeeklyPayments = financialGoal.GetWeeklyPayments();
+            ViewBag.BiWeeklyPayments = financialGoal.GetBiWeeklyPayments();
+            ViewBag.MonthlyPayments = financialGoal.GetMonthlyPayments();
+
+            ViewBag.EarlyDate = financialGoal.EndDate.AddDays(-1*ViewBag.DaysToCompletion/2).Date;
+            ViewBag.EarlyWeeklyPayments = financialGoal.GetModifiedWeeklyPayments(ViewBag.EarlyDate);
+            ViewBag.EarlyBiWeeklyPayments = financialGoal.GetModifiedBiWeeklyPayments(ViewBag.EarlyDate);
+            ViewBag.EarlyMonthlyPayments = financialGoal.GetModifiedMonthlyPayments(ViewBag.EarlyDate);
+
+            ViewBag.EarlyDate3_4 = financialGoal.EndDate.AddDays(-1 * ViewBag.DaysToCompletion / 4).Date;
+            ViewBag.EarlyWeeklyPayments3_4 = financialGoal.GetModifiedWeeklyPayments(ViewBag.EarlyDate3_4);
+            ViewBag.EarlyBiWeeklyPayments3_4 = financialGoal.GetModifiedBiWeeklyPayments(ViewBag.EarlyDate3_4);
+            ViewBag.EarlyMonthlyPayments3_4 = financialGoal.GetModifiedMonthlyPayments(ViewBag.EarlyDate3_4);
             return View(financialGoal);
         }
 
